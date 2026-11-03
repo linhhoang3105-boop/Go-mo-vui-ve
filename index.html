@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#171622" />
+<title>MÕ THE BEAT V2 — Drama song mõ</title>
+<style>
+:root{--ink:#191622;--muted:#a29da9;--gold:#f9ce69;--pink:#ff8da7;--lav:#bdadff;--white:#fff8ee;--panel:#242132;--edge:rgba(255,255,255,.11)}
+*{box-sizing:border-box} html{scroll-behavior:smooth}body{margin:0;background:#14121e;color:var(--white);font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.4}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
+.header{width:min(1320px,calc(100% - 36px));margin:auto;padding:23px 0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:13px}.logo-mark{width:49px;height:49px;display:grid;place-items:center;background:var(--gold);color:#332219;border-radius:16px;font-size:27px;box-shadow:0 8px 30px #f9ce6930;transform:rotate(-7deg)}.brand{font-size:clamp(20px,2.5vw,30px);font-weight:1000;letter-spacing:-.7px}.brand span{color:var(--gold)}.tag{font-size:12px;color:#9f98b0;letter-spacing:.4px;margin-top:1px}.tiny{font-size:12px;color:#b5afc1}
+.pill{border:1px solid var(--edge);background:#242233;border-radius:999px;padding:9px 13px;color:#ded2ee;font-size:12px;font-weight:650}
+.shell{width:min(1320px,calc(100% - 36px));margin:0 auto 44px;display:grid;grid-template-columns:minmax(290px,1.06fr) minmax(310px,1fr);gap:22px;align-items:start}
+.stage-panel,.controls{background:linear-gradient(135deg,#262339,#201e2e);border:1px solid var(--edge);border-radius:26px;overflow:hidden;box-shadow:0 22px 70px #09050e30}
+.stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px}.stage-head b{font-size:13px}.live{display:flex;align-items:center;gap:8px;font-size:12px;color:#d3cde0}.dot{width:8px;height:8px;border-radius:50%;background:#666477;display:inline-block}.dot.on{background:#58e9ae;box-shadow:0 0 0 5px #58e9ae20}
+.stage-area{position:relative;padding:0 16px 12px}.stage-wrap{position:relative;max-width:505px;margin:0 auto;overflow:hidden;border-radius:22px;box-shadow:0 15px 38px #0703103e;background:#fae9d2}canvas{display:block;width:100%;height:auto;touch-action:manipulation}.tap-overlay{display:none;position:absolute;right:16px;bottom:14px;border-radius:99px;background:#241b35d9;border:1px solid #ffffff60;color:white;font-size:12px;padding:8px 14px;backdrop-filter:blur(10px)}
+.stage-actions{padding:10px 16px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.btn{border:1px solid #ffffff19;border-radius:14px;padding:12px 13px;font-weight:800;color:#f9efff;background:#393449;transition:transform .12s,filter .12s}.btn:active{transform:scale(.97)}.btn:hover{filter:brightness(1.13)}.btn.primary{background:var(--gold);color:#352319;border-color:transparent}.btn.pink{background:#ff8da7;color:#35172b;border:0}.btn.danger{background:#7b3851}.btn.small{font-size:12px;padding:9px 11px}.btn.full{width:100%}.btn.active{border-color:var(--gold);color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--edge)}.stat{padding:14px 12px;text-align:center}.stat:not(:last-child){border-right:1px solid var(--edge)}.stat .num{font-size:23px;font-weight:1000;letter-spacing:-1px;color:var(--gold)}.stat .key{font-size:10px;color:#a7a0b4;text-transform:uppercase;letter-spacing:1px}
+.controls{padding:18px}.section{padding:0 0 18px;margin-bottom:18px;border-bottom:1px solid var(--edge)}.section:last-child{margin-bottom:0;padding-bottom:0;border:0}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:900;margin-bottom:13px}.section-title em{font-style:normal;font-size:11px;color:#f9ce69;background:#f9ce6916;padding:5px 8px;border-radius:8px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}.tab{border:1px solid #ffffff24;background:#332f42;color:#c7bdd4;border-radius:12px;padding:10px 7px;font-size:12px;font-weight:850}.tab.active{background:#f9ce69;color:#28212e;border-color:transparent}
+.mode-panel{background:#1c1a28;border:1px solid var(--edge);border-radius:15px;padding:13px}.mode-panel[hidden]{display:none}.desc{font-size:12px;color:#aaa5b8;line-height:1.65;margin:5px 0 11px}.upload{display:flex;gap:8px;align-items:center;justify-content:center;text-align:center;border:1px dashed #a8a0b46a;border-radius:12px;background:#272333;padding:18px 10px;cursor:pointer;font-size:13px;font-weight:800}.upload input{display:none}.upload:hover{background:#302b42}.file-name{color:#f9ce69;font-size:11px;overflow-wrap:anywhere;margin:9px 0}.track-row{display:flex;align-items:center;gap:8px;margin-top:10px}.track-row input[type=range]{flex:1;min-width:0}.time{font-size:11px;font-variant-numeric:tabular-nums;color:#c1b8cd;white-space:nowrap}
+.animal-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.animal{background:#302b3e;border:1px solid #ffffff12;border-radius:14px;padding:12px 5px;display:grid;gap:4px;place-items:center;color:#ede2f0;font-size:12px;font-weight:800}.animal span{font-size:28px}.animal.active{background:#f9ce6920;border-color:var(--gold);color:var(--gold)}
+.expression-list{display:flex;flex-wrap:wrap;gap:7px}.emotion{border:1px solid #ffffff1e;background:#332f42;color:#d2c7dd;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:750}.emotion.active{background:#bfadff27;border-color:var(--lav);color:#efddff}
+.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:15px}.label{display:block;color:#b6b0c2;font-size:12px;font-weight:800;margin-bottom:7px}.select,.color{width:100%;border:1px solid #ffffff24;border-radius:10px;background:#302c3e;color:#fff7ef;padding:10px}.color{height:40px;padding:4px;cursor:pointer}
+.slider-row{display:flex;align-items:center;justify-content:space-between;gap:9px;font-size:12px;color:#bab2c3;margin:14px 0 4px}.slider-row strong{color:var(--gold)}input[type=range]{accent-color:var(--gold);width:100%}.switch-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;color:#dcd1e1;font-size:13px}.switch-row input{width:19px;height:19px;accent-color:var(--gold)}
+.duo-studio{background:linear-gradient(145deg,#30263b,#211e2e);border:1px solid #f9ce6935;border-radius:18px;padding:14px;margin-top:12px}.duo-studio[hidden]{display:none}.duo-label{font-weight:900;font-size:13px;color:#f9ce69;margin-bottom:10px}.duo-plays{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}.duo-plays button{font-size:11px;min-height:52px;padding:9px 5px}.duo-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}.duo-actions button{font-size:12px;padding:11px 6px}.duo-studio .subgrid{margin-top:7px}.scene-chip{font-size:11px;padding:8px 10px;border-radius:10px;background:#fde6a412;color:#f1dca3;margin-top:9px}.help{border-left:3px solid var(--gold);padding:10px 12px;background:#f9ce690a;color:#c2baca;font-size:12px;line-height:1.65;border-radius:0 10px 10px 0}.toast{position:fixed;z-index:100;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:#f9ce69;color:#302322;font-weight:850;padding:12px 18px;border-radius:14px;box-shadow:0 14px 44px #0005;transition:.2s;max-width:calc(100% - 32px);text-align:center;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;padding:6px 22px 28px;color:#91899f;font-size:12px}.kbd{font-size:11px;color:#e6dfef;background:#43394d;padding:3px 6px;border-radius:6px}
+@media(min-width:1060px){.stage-panel{position:sticky;top:14px}}
+@media(max-width:790px){.shell{grid-template-columns:1fr;max-width:550px}.header{max-width:550px}.controls{padding:16px}.stage-panel{position:static}.tag{font-size:11px}}
+@media(max-width:390px){.shell,.header{width:calc(100% - 20px)}.brand{font-size:20px}.tag{font-size:10px}.stage-actions{gap:5px}.btn{padding:11px 6px;font-size:12px}.stage-area{padding:0 8px 8px}.animal-list{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header class="header"><div class="logo"><div class="logo-mark">🥁</div><div><div class="brand">MÕ <span>THE BEAT</span></div><div class="tag">Mõ thủ bất ổn · Gõ là phải có cảm xúc!</div></div></div><div class="pill">🎭 V2 · Song mõ có drama</div></header>
+<main class="shell">
+<section class="stage-panel">
+  <div class="stage-head"><b>🎬 SÂN KHẤU MÕ THỦ</b><div class="live"><span class="dot" id="liveDot"></span><span id="stateText">Sẵn sàng tạo nghiệp… à nhầm, tạo nhịp</span></div></div>
+  <div class="stage-area"><div class="stage-wrap"><canvas id="stage" width="720" height="960" aria-label="Nhân vật gõ mõ hoạt hình, nhấn để gõ"></canvas><span class="tap-overlay">👆 Chạm nhân vật để gõ</span></div></div>
+  <div class="stage-actions"><button class="btn primary" id="tapBtn">🥁 GÕ MỘT CÁI</button><button class="btn" id="recordBtn">🔴 Quay video</button><button class="btn" id="photoBtn">📷 Lưu ảnh</button></div>
+  <div class="stats"><div class="stat"><div class="num" id="bpmRead">120</div><div class="key">BPM</div></div><div class="stat"><div class="num" id="hitsRead">0</div><div class="key">Tiếng mõ</div></div><div class="stat"><div class="num" id="emotionRead">😌</div><div class="key">Biểu cảm</div></div></div>
+</section>
+<section class="controls">
+  <div class="section"><div class="section-title">🎵 NHẠC NÀO, MÕ ĐẤY <em>2 chế độ nghe</em></div>
+    <div class="tabs"><button class="tab active" data-mode="file">🎧 File nhạc</button><button class="tab" data-mode="mic">🎙️ Nghe ngoài</button><button class="tab" data-mode="manual">👆 Tự gõ</button></div>
+    <div class="mode-panel" id="filePanel">
+      <label class="upload">📂 Chọn bài nhạc từ máy (MP3, M4A, WAV…)<input type="file" accept="audio/*" id="fileInput" /></label>
+      <div class="file-name" id="fileName">Chưa chọn bài nhạc</div>
+      <div class="track-row"><button class="btn small primary" id="playBtn" disabled>▶ Phát</button><input type="range" min="0" max="1000" value="0" id="progress" aria-label="Tiến trình nhạc"/><span class="time" id="timeRead">0:00 / 0:00</span></div>
+      <p class="desc" id="analysisStatus">Ứng dụng sẽ tìm nhịp dựa trên các điểm nhấn âm thanh. Nếu nhạc phức tạp, bà có thể chỉnh BPM bên dưới.</p>
+    </div>
+    <div class="mode-panel" id="micPanel" hidden><button class="btn primary full" id="micBtn">🎙️ Bật micro & bắt nhịp</button><p class="desc">Bật nhạc qua loa/TV/thiết bị khác. App nghe nhạc rồi gõ theo các điểm nhấn. Cấp quyền micro khi được hỏi. Tiếng ồn và tiếng mõ phát ra loa có thể gây nhận nhịp sai.</p><div class="tiny" id="micStatus">Micro đang tắt</div></div>
+    <div class="mode-panel" id="manualPanel" hidden><button class="btn primary full" id="autoBtn">▶ Gõ tự động theo BPM đặt</button><p class="desc">Không cần nhạc. Bấm “Gõ một cái”, chạm lên nhân vật hoặc nhấn <span class="kbd">Space</span> để gõ. Có thể bật nhịp đều.</p></div>
+  </div>
+  <div class="section"><div class="section-title">🐾 TUYỂN MÕ THỦ <em>6 nhân vật</em></div><div class="animal-list" id="animalList"></div><label class="switch-row"><span>🐾 Song mõ: hai bé cùng gõ</span><input type="checkbox" id="duoToggle" /></label></div>
+  <div class="section" id="duoStudio" hidden>
+    <div class="section-title">👀 SONG MÕ CÓ DRAMA <em>tương tác thật</em></div>
+    <div class="duo-studio">
+      <div class="duo-label">Một bé giữ tâm tịnh, một bé phá làng phá xóm 🤣</div>
+      <div class="subgrid"><div><label class="label" for="partnerAnimal">Mõ thủ B · đứa báo</label><select class="select" id="partnerAnimal"></select></div><div><label class="label" for="partnerColor">Màu bé B</label><input class="color" type="color" id="partnerColor" value="#90d98c"/></div></div>
+      <div class="subgrid"><div><label class="label" for="duoScene">Tính cách cặp đôi</label><select class="select" id="duoScene"><option value="saint">😌 Bạn hiền – bạn báo</option><option value="rivals">😤 Hai đứa oan gia</option><option value="stoic">🫠 Bất lực toàn tập</option><option value="friends">🥹 Dỗi rồi lại thương</option></select></div><div><label class="label" for="duoReaction">Bé A phản ứng</label><select class="select" id="duoReaction"><option value="auto">🎲 Tùy tình huống</option><option value="sideeye">👀 Lườm cháy máy</option><option value="fedup">😑 Bất lực</option><option value="angry">😡 Nổi cáu</option><option value="eyeroll">🙄 Đảo mắt</option><option value="shocked">😳 Giật mình</option><option value="cry">🥹 Tủi thân</option><option value="zen">😌 Nhắm mắt niệm Phật</option></select></div></div>
+      <div class="slider-row"><span>⚡ Độ tăng động của bé B</span><strong id="chaosText">75%</strong></div><input id="chaosSlider" aria-label="Độ tăng động" type="range" min="0" max="100" value="75"/>
+      <div class="slider-row"><span>💢 Độ khó chịu của bé A</span><strong id="irritationText">80%</strong></div><input id="irritationSlider" aria-label="Độ khó chịu" type="range" min="0" max="100" value="80"/>
+      <label class="switch-row"><span>🎲 Tự diễn tiểu phẩm lúc nhạc chạy</span><input id="dramaAuto" type="checkbox" checked/></label>
+      <div class="scene-chip" id="duoStatus">Chọn tình huống hoặc bật nhạc, hai đứa sẽ tự diễn 🎭</div>
+      <div class="duo-actions"><button class="btn pink" id="jumpBtn">💃 Bé B nhảy phá!</button><button class="btn" id="glareBtn">👀 A lườm ngay!</button><button class="btn" id="offbeatBtn">🥁 B gõ lệch nhịp</button><button class="btn" id="dropBtn">🪵 B đánh rơi dùi</button><button class="btn" id="bumpBtn">💥 B lấn chỗ</button><button class="btn primary" id="skitBtn">▶ Diễn thử 10 giây</button></div>
+    </div>
+  </div>
+  <div class="section"><div class="section-title">🎭 BIỂU CẢM BẤT ỔN <em>10 kiểu mặt</em></div><div class="expression-list" id="emotionList"></div><p class="desc">Chọn “Tự đổi” để nhân vật phản ứng theo mức năng lượng và nhịp. Với nhạc buồn/vui, thuật toán chưa đọc chính xác cảm xúc của bài hát.</p></div>
+  <div class="section"><div class="section-title">🎨 TỰ DESIGN MÕ THỦ</div>
+    <div class="subgrid"><div><label class="label" for="furColor">Màu của bé</label><input id="furColor" class="color" type="color" value="#eac4a3" /></div><div><label class="label" for="backdrop">Phông nền</label><select class="select" id="backdrop"><option value="peach">🍑 Kem đào</option><option value="night">🌌 Đêm tím</option><option value="garden">🌿 Vườn xanh</option><option value="sunset">🌅 Hoàng hôn</option></select></div><div><label class="label" for="accessory">Phụ kiện</label><select class="select" id="accessory"><option value="none">Không có</option><option value="glasses">🤓 Kính mắt</option><option value="bow">🎀 Nơ xinh</option><option value="crown">👑 Vương miện</option><option value="halo">✨ Hào quang</option></select></div><div><label class="label" for="drumColor">Màu mõ</label><input class="color" type="color" id="drumColor" value="#ab602f" /></div></div>
+    <button class="btn small" id="randomBtn" style="margin-top:13px;width:100%">🎲 Bất ổn ngẫu nhiên</button>
+    <div class="switch-row"><span>💾 Nhớ nhân vật trên thiết bị này</span><button class="btn small" id="saveBtn">Lưu thiết kế</button></div>
+  </div>
+  <div class="section"><div class="section-title">🔊 ĐIỀU KHIỂN NHỊP & ÂM THANH</div>
+    <label class="label" for="soundType">Âm mõ</label><select class="select" id="soundType"><option value="wood">🪵 Mõ gỗ vang</option><option value="deep">🟤 Mõ trầm</option><option value="bright">✨ Mõ lanh lảnh</option><option value="soft">☁️ Mõ êm</option></select>
+    <div class="slider-row"><span>BPM mục tiêu / sửa nhịp</span><strong id="tempoText">120</strong></div><input type="range" id="tempo" min="55" max="210" value="120" />
+    <div class="slider-row"><span>Âm lượng tiếng mõ</span><strong id="volumeText">60%</strong></div><input type="range" id="volume" min="0" max="100" value="60" />
+    <div class="slider-row"><span>Lệch nhịp (âm thanh / hình ảnh)</span><strong id="offsetText">0 ms</strong></div><input type="range" id="offset" min="-200" max="200" step="10" value="0" />
+    <label class="switch-row"><span>⚡ Đánh mõ dồn lúc cao trào</span><input type="checkbox" checked id="hypeToggle" /></label>
+  </div>
+  <div class="help">💡 <b>Mẹo:</b> Với file nhạc, app phân tích nhịp sơ bộ rồi gõ theo mốc thời gian. Nhạc không có phách rõ hoặc nhịp biến đổi liên tục có thể bị lệch. Với micro, hãy để thiết bị gần loa phát nhạc. File nhạc và bản thiết kế không được tải lên máy chủ.</div>
+</section>
+</main>
+<footer>MÕ THE BEAT · Một chiếc app vui vui by Linh Linh ✨ · HTML tự chạy, không cần đăng nhập</footer>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const canvas=$('stage'), c=canvas.getContext('2d');
+const C={w:720,h:960};
+const animals=[['cat','🐱','Mèo kiêu','#eac4a3'],['capy','🦫','Capybara','#c9a383'],['frog','🐸','Ếch cọc','#90d98c'],['panda','🐼','Gấu trúc','#f0e9e1'],['bunny','🐰','Thỏ hồng','#f9d1e5'],['bear','🐻','Gấu nâu','#cba070']];
+const emotions=[['auto','🎲','Tự đổi'],['zen','😌','Mãn nguyện'],['angry','😡','Cọc cằn'],['smug','😏','Khinh đời'],['sleep','😴','Buồn ngủ'],['cry','🥹','Rưng rưng'],['wild','🤪','Lên đồng'],['shocked','😳','Sốc'],['love','😍','Say mê'],['judge','🙄','Phán xét'],['sideeye','👀','Lườm'],['fedup','😑','Bất lực'],['eyeroll','🙄','Đảo mắt'],['sweat','😅','Cạn lời'],['squint','😒','Lườm nửa mắt']];
+let state={animal:'cat',emotion:'auto',fur:'#eac4a3',drum:'#ab602f',backdrop:'peach',accessory:'none',duo:false,partnerAnimal:'frog',partnerColor:'#90d98c',duoScene:'saint',duoReaction:'auto',chaos:75,irritation:80,dramaAuto:true,drama:null,lastDramaAt:0,skitTimer:null,mode:'file',bpm:120,volume:.6,offset:0,hype:true,hits:0,recording:false,playing:false,beatGlow:0,lastHit:0,expression:'zen',trackEnergy:.2};
+let audioCtx=null, master=null, recordDest=null, songSource=null, micStream=null, micSource=null, analyser=null, freqData=null, waveData=null;
+let song=new Audio();song.preload='metadata';song.crossOrigin='anonymous';
+let fileURL=null, beatGrid=[],beatIndex=0, gridBpm=120, currentDuration=0, fileAnalyzing=false, tempoEdited=false;
+let microphoneOn=false, lastOnset=0, onsetArr=[], rmsBaseline=.04, micNextBeat=0,micBeatMs=500, micLastEnergy=0, manualActive=false,manualNext=0, tempRecorder=null, recordedChunks=[],recordingStream=null, recordingTimer=null;
+let toastTimer=0, particles=[], rafTime=0, lastAnimFrame=0;
+function notice(s){const x=$('toast');x.textContent=s;x.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>x.classList.remove('show'),2900)}
+function setStatus(text,on){$('stateText').textContent=text;$('liveDot').classList.toggle('on',!!on)}
+function savePrefs(){try{localStorage.setItem('mo-the-beat-v1',JSON.stringify({animal:state.animal,emotion:state.emotion,fur:state.fur,drum:state.drum,backdrop:state.backdrop,accessory:state.accessory,duo:state.duo,partnerAnimal:state.partnerAnimal,partnerColor:state.partnerColor,duoScene:state.duoScene,duoReaction:state.duoReaction,chaos:state.chaos,irritation:state.irritation,dramaAuto:state.dramaAuto,volume:state.volume,bpm:state.bpm}))}catch(e){notice('Trình duyệt không cho lưu thiết kế')}}
+function restore(){try{let o=JSON.parse(localStorage.getItem('mo-the-beat-v1')||'null');if(!o)return;for(const k of ['animal','emotion','fur','drum','backdrop','accessory','duo','partnerAnimal','partnerColor','duoScene','duoReaction','chaos','irritation','dramaAuto','volume','bpm'])if(k in o)state[k]=o[k]}catch(e){}}
+function buildSelectors(){const a=$('animalList');a.innerHTML='';animals.forEach(([id,emoji,label,color])=>{const el=document.createElement('button');el.className='animal'+(state.animal===id?' active':'');el.innerHTML=`<span>${emoji}</span>${label}`;el.onclick=()=>{state.animal=id;state.fur=color;state.expression='zen';$('furColor').value=color;buildSelectors();};a.appendChild(el)});const e=$('emotionList');e.innerHTML='';emotions.forEach(([id,emoji,label])=>{const el=document.createElement('button');el.className='emotion'+(state.emotion===id?' active':'');el.textContent=emoji+' '+label;el.onclick=()=>{state.emotion=id;state.expression=id==='auto'?'zen':id;buildSelectors()};e.appendChild(el)});}
+function syncControls(){$('partnerColor').value=state.partnerColor;$('partnerAnimal').value=state.partnerAnimal;$('duoScene').value=state.duoScene;$('duoReaction').value=state.duoReaction;$('chaosSlider').value=state.chaos;$('chaosText').textContent=state.chaos+'%';$('irritationSlider').value=state.irritation;$('irritationText').textContent=state.irritation+'%';$('dramaAuto').checked=state.dramaAuto;$('duoStudio').hidden=!state.duo;$('furColor').value=state.fur;$('drumColor').value=state.drum;$('backdrop').value=state.backdrop;$('accessory').value=state.accessory;$('duoToggle').checked=state.duo;$('tempo').value=state.bpm;$('tempoText').textContent=state.bpm;$('bpmRead').textContent=state.bpm;$('volume').value=Math.round(state.volume*100);$('volumeText').textContent=Math.round(state.volume*100)+'%';$('offsetText').textContent=state.offset+' ms';buildSelectors()}
+$('furColor').oninput=e=>state.fur=e.target.value;$('drumColor').oninput=e=>state.drum=e.target.value;$('backdrop').onchange=e=>state.backdrop=e.target.value;$('accessory').onchange=e=>state.accessory=e.target.value;$('duoToggle').onchange=e=>{state.duo=e.target.checked;$('duoStudio').hidden=!state.duo;if(state.duo)notice('Hai mõ thủ đã vào vị trí! Bấm "Bé B nhảy phá" để xem drama 🤣')};
+$('tempo').oninput=e=>{state.bpm=+e.target.value;tempoEdited=true;$('tempoText').textContent=state.bpm;$('bpmRead').textContent=state.bpm;if(state.mode==='file'&&song.duration){makeGrid(state.bpm);beatIndex=lowerBound(beatGrid,song.currentTime-.01)}micBeatMs=60000/state.bpm;};
+$('volume').oninput=e=>{state.volume=+e.target.value/100;$('volumeText').textContent=Math.round(state.volume*100)+'%'};$('offset').oninput=e=>{state.offset=+e.target.value;$('offsetText').textContent=state.offset+' ms'};$('hypeToggle').onchange=e=>state.hype=e.target.checked;
+$('partnerAnimal').innerHTML=animals.map(([id,emoji,label])=>`<option value="${id}">${emoji} ${label}</option>`).join('');
+$('partnerAnimal').onchange=e=>{state.partnerAnimal=e.target.value;state.partnerColor=animals.find(z=>z[0]===state.partnerAnimal)[3];$('partnerColor').value=state.partnerColor};
+$('partnerColor').oninput=e=>state.partnerColor=e.target.value;
+$('duoScene').onchange=e=>state.duoScene=e.target.value;
+$('duoReaction').onchange=e=>state.duoReaction=e.target.value;
+$('chaosSlider').oninput=e=>{state.chaos=+e.target.value;$('chaosText').textContent=state.chaos+'%'};
+$('irritationSlider').oninput=e=>{state.irritation=+e.target.value;$('irritationText').textContent=state.irritation+'%'};
+$('dramaAuto').onchange=e=>state.dramaAuto=e.target.checked;
+$('saveBtn').onclick=()=>{savePrefs();notice('Đã lưu mõ thủ của bà trên trình duyệt! 💖')};
+$('randomBtn').onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];let animal=pick(animals);state.animal=animal[0];state.fur=pick(['#eac4a3','#b4dff8','#eec3ed','#e5cf8b','#b6dba2','#d6b7ff','#d8a981']);state.drum=pick(['#ab602f','#884e77','#bf763c','#8791ba']);state.emotion=pick(emotions.slice(1))[0];state.expression=state.emotion;state.backdrop=pick(['peach','night','garden','sunset']);state.accessory=pick(['none','glasses','bow','crown','halo']);syncControls();notice('Mõ thủ mới vừa được triệu hồi! 🤣')};
+for(const btn of document.querySelectorAll('.tab'))btn.onclick=()=>changeMode(btn.dataset.mode);
+async function changeMode(mode){if(state.mode===mode)return;manualActive=false;updateManual();if(state.mode==='mic')stopMic();if(state.mode==='file')song.pause();state.mode=mode;state.playing=false;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));for(const m of ['file','mic','manual'])$(m+'Panel').hidden=m!==mode;if(mode==='file'){setStatus('Chọn nhạc để mõ gõ',false)}else if(mode==='mic'){setStatus('Đang chờ mở micro',false)}else{setStatus('Nhấn để gõ',false)}$('playBtn').textContent='▶ Phát'}
+function ensureAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC){notice('Trình duyệt không hỗ trợ Web Audio');return null}audioCtx=new AC();master=audioCtx.createGain();master.gain.value=.85;master.connect(audioCtx.destination);recordDest=audioCtx.createMediaStreamDestination();master.connect(recordDest)}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
+function drumHit(at=null,force=1){const ac=ensureAudio();if(!ac)return;const t=at??ac.currentTime+.002;const type=$('soundType').value;let base=type==='deep'?175:type==='bright'?410:type==='soft'?245:290;const length=type==='soft'?.14:.19;const env=ac.createGain();env.gain.setValueAtTime(0.0001,t);env.gain.exponentialRampToValueAtTime(Math.max(.006,state.volume*.25*force),t+.006);env.gain.exponentialRampToValueAtTime(.0001,t+length);env.connect(master);
+const osc=ac.createOscillator();osc.type=type==='bright'?'triangle':'sine';osc.frequency.setValueAtTime(base*1.6,t);osc.frequency.exponentialRampToValueAtTime(base*.57,t+.13);osc.connect(env);osc.start(t);osc.stop(t+length+.01);
+const dur=.11;const len=Math.max(200,Math.floor(ac.sampleRate*dur));const noise=ac.createBuffer(1,len,ac.sampleRate);let d=noise.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/len*7);const nsrc=ac.createBufferSource();nsrc.buffer=noise;const filter=ac.createBiquadFilter();filter.type='bandpass';filter.frequency.value=type==='bright'?1450:type==='deep'?470:830;filter.Q.value=.8;let ng=ac.createGain();ng.gain.value=state.volume*(type==='soft'?.035:.07)*force;nsrc.connect(filter);filter.connect(ng);ng.connect(master);nsrc.start(t);nsrc.stop(t+dur+.002);
+}
+// The character reactions are decoupled from the audio engine: they work for tap, file and mic modes.
+const dramas={jump:{tag:'B NHẢY MÚA! 💃',react:'sideeye'},offbeat:{tag:'AI GÕ SAI NHỊP ĐẤY? 🥁',react:'fedup'},drop:{tag:'RƠI DÙI MẤT RỒI! 🪵',react:'shocked'},bump:{tag:'ĐỪNG LẤN CHỖ TÔI! 💢',react:'angry'},glare:{tag:'LƯỜM KHÔNG CẦN LÝ DO 👀',react:'sideeye'},peace:{tag:'THÔI NIỆM PHẬT TIẾP 😌',react:'zen'}};
+function chooseReaction(kind){if(state.duoReaction!=='auto')return state.duoReaction;const mood=state.duoScene;
+ if(kind==='peace')return 'zen';
+ if(mood==='stoic')return Math.random()<.55?'fedup':'eyeroll';
+ if(mood==='friends')return Math.random()<.45?'sweat':'sideeye';
+ if(mood==='rivals')return state.irritation>45?'angry':'sideeye';
+ if(kind==='drop')return 'shocked';if(kind==='peace')return 'zen';
+ if(state.irritation>83)return Math.random()<.5?'angry':'sideeye';
+ if(state.irritation<24)return Math.random()<.6?'sweat':'zen';
+ return Math.random()<.6?'sideeye':'fedup';}
+function triggerDrama(kind='jump',force=false){
+ if(!state.duo){state.duo=true;$('duoToggle').checked=true;$('duoStudio').hidden=false}
+ const now=performance.now();if(!force&&now-state.lastDramaAt<2500)return;
+ const reaction=chooseReaction(kind);state.drama={type:kind,start:now,react:reaction,tag:dramas[kind].tag};state.lastDramaAt=now;
+ $('duoStatus').textContent='🎬 '+state.drama.tag+' · Bé A: '+(emotions.find(e=>e[0]===reaction)?.[2]||reaction);
+}
+function maybeAutoDrama(now){
+ if(!state.duo||!state.dramaAuto||state.chaos===0||now-state.lastDramaAt<2900)return;
+ if(Math.random()<(0.012+state.chaos*.0011)*(state.trackEnergy>.48?1.45:1)){
+  const r=Math.random();triggerDrama(r<.64?'jump':r<.82?'offbeat':r<.93?'bump':'drop');
+ }
+}
+$('jumpBtn').onclick=()=>triggerDrama('jump',true);
+$('glareBtn').onclick=()=>triggerDrama('glare',true);
+$('offbeatBtn').onclick=()=>triggerDrama('offbeat',true);
+$('dropBtn').onclick=()=>triggerDrama('drop',true);
+$('bumpBtn').onclick=()=>triggerDrama('bump',true);
+$('skitBtn').onclick=()=>{
+ if(state.skitTimer){clearInterval(state.skitTimer);state.skitTimer=null;$('skitBtn').textContent='▶ Diễn thử 10 giây';notice('Đã dừng tiểu phẩm');return}
+ if(!state.duo){state.duo=true;$('duoToggle').checked=true;$('duoStudio').hidden=false}
+ let n=0;const types=['jump','jump','offbeat','bump','jump','drop','glare','peace'];
+ ensureAudio();triggerDrama('jump',true);hit(.65);
+ $('skitBtn').textContent='⏹ Dừng tiểu phẩm';
+ state.skitTimer=setInterval(()=>{n++;hit(.65);if(n%3===0)triggerDrama(types[Math.floor(n/3)%types.length],true);if(n>=18){clearInterval(state.skitTimer);state.skitTimer=null;$('skitBtn').textContent='▶ Diễn thử 10 giây';}},520);
+};
+function hit(force=1,visualOnly=false){let now=performance.now();state.hits++;maybeAutoDrama(now);state.lastHit=now;state.beatGlow=1;$('hitsRead').textContent=state.hits;const v=state.emotion==='auto'?state.expression:state.emotion;for(let i=0;i<9;i++){let theta=Math.random()*Math.PI*2;particles.push({x:525,y:670,vx:Math.cos(theta)*(1.5+Math.random()*5),vy:-2.5+Math.sin(theta)*2,life:1,r:2+Math.random()*7})}if(!visualOnly)drumHit(null,force);}
+$('tapBtn').onclick=()=>hit();canvas.onclick=()=>hit();document.addEventListener('keydown',e=>{if(e.code==='Space'&&!['BUTTON','INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();hit()}});
+async function setupSong(){const ac=ensureAudio();if(!ac)return false;if(!songSource){try{songSource=ac.createMediaElementSource(song);songSource.connect(ac.destination);songSource.connect(recordDest);songSource.connect(analyserForSong())}catch(e){notice('Không khởi tạo âm thanh được: '+e.message);return false}}return true}
+let songAnalyser=null,songFreq=null;function analyserForSong(){songAnalyser=audioCtx.createAnalyser();songAnalyser.fftSize=1024;songFreq=new Uint8Array(songAnalyser.frequencyBinCount);return songAnalyser}
+function timeFormat(s){if(!isFinite(s))s=0;s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+$('fileInput').addEventListener('change',async e=>{let f=e.target.files&&e.target.files[0];if(!f)return;let ac=ensureAudio();if(!ac)return;song.pause();state.playing=false;$('playBtn').textContent='▶ Phát';if(fileURL)URL.revokeObjectURL(fileURL);fileURL=URL.createObjectURL(f);song.src=fileURL;$('fileName').textContent='🎵 '+f.name;$('playBtn').disabled=false;$('analysisStatus').textContent='⏳ Đang nhận diện nhịp từ file…';fileAnalyzing=true;beatGrid=[];beatIndex=0;tempoEdited=false;let token=fileURL;try{let buffer=await f.arrayBuffer();let ab=await ac.decodeAudioData(buffer.slice(0));if(token!==fileURL)return;currentDuration=ab.duration;const info=analyzeBeat(ab);gridBpm=info.bpm;state.bpm=gridBpm;$('tempo').value=gridBpm;$('tempoText').textContent=gridBpm;$('bpmRead').textContent=gridBpm;makeGrid(gridBpm,info.phase);$('analysisStatus').textContent=`✅ Nhận diện thử: ${gridBpm} BPM (${info.quality}). Nếu nghe lệch, chỉnh BPM hoặc tua lại đầu bài.`;notice('Đã bắt nhịp sơ bộ, bật nhạc lên nào! 🥁')}catch(err){console.warn(err);currentDuration=song.duration||180;gridBpm=state.bpm;makeGrid(state.bpm);$('analysisStatus').textContent='Không phân tích được nhịp tự động của file này. Dùng BPM thủ công để gõ đều.';notice('Không phân tích được, vẫn có thể phát nhạc!')}finally{fileAnalyzing=false}});
+function analyzeBeat(buffer){const sr=buffer.sampleRate,dur=buffer.duration,channels=buffer.numberOfChannels,interval=.02,hop=Math.max(1,Math.floor(sr*interval)),frames=Math.floor(buffer.length/hop),arr=new Float32Array(frames);const x=buffer.getChannelData(0),y=channels>1?buffer.getChannelData(1):null;for(let i=0;i<frames;i++){const start=i*hop;let sum=0,n=0;for(let p=start;p<Math.min(start+hop,buffer.length);p+=13){let v=y?(x[p]+y[p])*.5:x[p];sum+=v*v;n++}arr[i]=Math.sqrt(sum/(n||1))}let flux=new Float32Array(frames),smooth=0;for(let i=1;i<frames;i++){smooth=smooth*.9+arr[i]*.1;flux[i]=Math.max(0,arr[i]-smooth)*.9+Math.max(0,arr[i]-arr[i-1])*.65}let sampled=Math.min(frames,15000),base=0;for(let i=0;i<sampled;i++)base+=flux[i];base/=sampled||1;let peaks=new Float32Array(frames);for(let i=2;i<frames-2;i++){let v=flux[i];if(v>base*1.4&&v>=flux[i-1]&&v>=flux[i+1])peaks[i]=v}let bestLag=25,bestScore=-1;for(let bpm=60;bpm<=185;bpm++){let lag=Math.round(3000/bpm);let s=0;const limit=Math.min(frames,18000);for(let j=lag;j<limit;j+=2)s+=peaks[j]*peaks[j-lag];const norm=s/(limit/(2||1));let bias=1+(.09-Math.abs(bpm-115)*.0006);let score=norm*bias;if(score>bestScore){bestScore=score;bestLag=lag}}let bpm=Math.round(3000/bestLag);bpm=Math.min(210,Math.max(55,bpm));let phaseScore=new Float32Array(bestLag);for(let i=0;i<frames;i++){if(!peaks[i])continue;const p=i%bestLag;phaseScore[p]+=peaks[i]}let phase=0;for(let j=1;j<bestLag;j++)if(phaseScore[j]>phaseScore[phase])phase=j;return {bpm,phase:phase*.02,quality:bestScore>.00002?'khá rõ':'ước lượng'} }
+let gridPhase=0;function makeGrid(bpm,phase=null){if(phase!==null&&phase!==undefined)gridPhase=phase;let step=60/Math.max(40,bpm);const d=currentDuration||song.duration||600;beatGrid=[];let start=(gridPhase%step+step)%step;for(let t=start;t<d+step;t+=step)beatGrid.push(t);beatIndex=lowerBound(beatGrid,song.currentTime||0)}
+function lowerBound(a,v){let lo=0,hi=a.length;while(lo<hi){let m=(lo+hi)>>1;if(a[m]<v)lo=m+1;else hi=m}return lo}
+$('playBtn').onclick=async()=>{if(!song.src){notice('Bà chọn bài nhạc trước nhé!');return}if(!await setupSong())return;if(song.paused){try{await song.play();state.playing=true;$('playBtn').textContent='⏸ Dừng';setStatus('Đang gõ theo nhạc 🎵',true);beatIndex=lowerBound(beatGrid,song.currentTime-.01)}catch(e){notice('Không phát được: '+e.message)}}else{song.pause();state.playing=false;$('playBtn').textContent='▶ Phát';setStatus('Đã tạm dừng',false)}};
+song.addEventListener('ended',()=>{state.playing=false;$('playBtn').textContent='▶ Phát';setStatus('Hết bài rồi, giác ngộ xong! 😌',false)});
+song.addEventListener('loadedmetadata',()=>{currentDuration=song.duration;$('timeRead').textContent='0:00 / '+timeFormat(song.duration)});
+song.addEventListener('seeked',()=>{beatIndex=lowerBound(beatGrid,song.currentTime-.02)});
+$('progress').addEventListener('input',e=>{if(isFinite(song.duration))song.currentTime=(e.target.value/1000)*song.duration;beatIndex=lowerBound(beatGrid,song.currentTime-.02)});
+async function toggleMic(){if(microphoneOn){stopMic();return}try{let ac=ensureAudio();if(!ac)return;if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw Error('Trình duyệt / địa chỉ này chưa hỗ trợ micro. Hãy dùng HTTPS hoặc localhost.');micStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});micSource=ac.createMediaStreamSource(micStream);analyser=ac.createAnalyser();analyser.fftSize=2048;analyser.smoothingTimeConstant=.45;micSource.connect(analyser);waveData=new Float32Array(analyser.fftSize);microphoneOn=true;onsetArr=[];lastOnset=0;rmsBaseline=.04;micNextBeat=0;$('micBtn').textContent='⏹ Tắt micro';$('micStatus').textContent='🎙️ Đang nghe nhạc xung quanh';setStatus('Đang nghe…',true)}catch(err){console.warn(err);notice('Không mở được micro: '+err.message);setStatus('Micro chưa được cấp quyền',false)}}
+function stopMic(){if(micStream)micStream.getTracks().forEach(t=>t.stop());if(micSource)try{micSource.disconnect()}catch(e){};micStream=null;micSource=null;analyser=null;microphoneOn=false;$('micBtn').textContent='🎙️ Bật micro & bắt nhịp';$('micStatus').textContent='Micro đang tắt';setStatus('Micro đã tắt',false)}$('micBtn').onclick=toggleMic;
+function processMic(now){if(!microphoneOn||!analyser)return;analyser.getFloatTimeDomainData(waveData);let n=0;for(let i=0;i<waveData.length;i+=4)n+=waveData[i]*waveData[i];let rms=Math.sqrt(n/(waveData.length/4));const prev=rmsBaseline;rmsBaseline=rmsBaseline*.974+rms*.026;const rise=rms>Math.max(.014,prev*1.65)&&rms>micLastEnergy*1.10;micLastEnergy=micLastEnergy*.6+rms*.4;
+if(rise&&now-lastOnset>195){const gap=lastOnset?now-lastOnset:0;lastOnset=now;if(gap>=260&&gap<=1150){onsetArr.push(gap);if(onsetArr.length>10)onsetArr.shift();const vals=onsetArr.slice().sort((a,b)=>a-b);let mid=vals[Math.floor(vals.length/2)];if(mid<380)mid*=2;else if(mid>850)mid/=2;micBeatMs=micBeatMs*.60+mid*.40;let candidate=Math.round(60000/micBeatMs);if(onsetArr.length>=3){state.bpm=Math.min(210,Math.max(55,candidate));$('bpmRead').textContent=state.bpm;$('tempoText').textContent=state.bpm;$('tempo').value=state.bpm}}if(!micNextBeat||now>micNextBeat+micBeatMs*1.5)micNextBeat=now;else{const diff=now-micNextBeat;const n=Math.round(diff/micBeatMs);if(Math.abs(diff-n*micBeatMs)<130)micNextBeat+=(diff-n*micBeatMs)*.24}if(onsetArr.length<3&&rms>.025){hit(Math.min(1.5,.6+rms*5));micNextBeat=now+micBeatMs}}
+if(onsetArr.length>=3&&rms>.006&&now-lastOnset<1700&&now>=micNextBeat){hit(Math.min(1.45,.75+rms*4));micNextBeat+=micBeatMs;while(micNextBeat<now-40)micNextBeat+=micBeatMs}if(rms>.02)$('micStatus').textContent='🎙️ Đang nghe • Âm lượng vào: '+Math.min(100,Math.round(rms*500))+'%';else $('micStatus').textContent='🎙️ Đang lắng nghe…';state.trackEnergy=Math.min(1,rms*8)}
+function updateManual(){$('autoBtn').textContent=manualActive?'⏹ Dừng nhịp tự động':'▶ Gõ tự động theo BPM đặt'}$('autoBtn').onclick=()=>{manualActive=!manualActive;manualNext=performance.now();ensureAudio();updateManual();setStatus(manualActive?'Mõ đang tự gõ':'Chờ bà ra tay',manualActive)};
+function fileBeatUpdate(){if(state.mode!=='file'||song.paused||!beatGrid.length)return;let t=song.currentTime+(state.offset/1000);if(beatIndex<beatGrid.length&&t>=beatGrid[beatIndex]-0.018){if(t-beatGrid[beatIndex]<.25){hit(.9);if(state.hype&&state.trackEnergy>.78&&state.bpm<165){setTimeout(()=>{if(!song.paused&&state.mode==='file')hit(.4)},60000/state.bpm/2)}}beatIndex++;if(beatIndex<beatGrid.length&&t>beatGrid[beatIndex]+.25)beatIndex=lowerBound(beatGrid,t-.02)}if(songAnalyser){songAnalyser.getByteFrequencyData(songFreq);let e=0;for(let i=3;i<Math.min(80,songFreq.length);i++)e+=songFreq[i];state.trackEnergy=state.trackEnergy*.89+(e/(77*255))*.11}const duration=song.duration||0;$('progress').value=duration?Math.round(song.currentTime/duration*1000):0;$('timeRead').textContent=timeFormat(song.currentTime)+' / '+timeFormat(duration)}
+// Canvas drawing — original procedural cartoon artwork; no external assets.
+function mix(a,b,p){const h=x=>parseInt(x,16);a=(a||'#aaaaaa').replace('#','');b=(b||'#aaaaaa').replace('#','');let out='#';for(let i=0;i<6;i+=2){let v=Math.round(h(a.slice(i,i+2))*(1-p)+h(b.slice(i,i+2))*p);out+=Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')}return out}
+function ellipse(x,y,rx,ry,fill,stroke=null,lw=4){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke()}}
+function path(fill,stroke,lw=4,fn){c.beginPath();fn();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.lineWidth=lw;c.strokeStyle=stroke;c.stroke()}}
+function roundrect(x,y,w,h,r,color){c.fillStyle=color;c.beginPath();c.roundRect(x,y,w,h,r);c.fill()}
+function background(t){let themes={peach:['#ffe9d5','#f7bfbb','#b979b1'],night:['#3e2a6e','#191b45','#cb88ce'],garden:['#d9f6d6','#a8dbbd','#75ada3'],sunset:['#ffe5ae','#ed9baa','#8b83c7']};let cl=themes[state.backdrop];const g=c.createLinearGradient(0,0,0,960);g.addColorStop(0,cl[0]);g.addColorStop(.65,cl[1]);g.addColorStop(1,cl[2]);c.fillStyle=g;c.fillRect(0,0,720,960);c.save();c.globalAlpha=.19;for(let i=0;i<16;i++){let x=((i*197+47)%800)-40,y=80+(i*91)%770, r=8+(i*17)%34;ellipse(x,y,r,r,'#fff')};c.restore();let light=c.createRadialGradient(360,470,25,360,470,400);light.addColorStop(0,'#ffffff65');light.addColorStop(1,'#ffffff00');c.fillStyle=light;c.fillRect(0,0,720,960);c.save();c.globalAlpha=.16;ellipse(360,825,310,33,'#332342');c.restore();c.fillStyle=state.backdrop==='night'?'#fff2d5':'#6c425c';c.textAlign='center';c.textBaseline='middle';c.font='900 33px ui-rounded, system-ui, sans-serif';c.fillText('MÕ THỦ BẤT ỔN',360,83);c.font='700 18px ui-rounded, system-ui, sans-serif';c.fillText('gõ theo nhạc, cáu theo tâm trạng ✨',360,122)}
+function performer(x,y,scale,animal,color,expression,t,side=0,fx={}){c.save();c.translate(x+(fx.x||0),y+(fx.y||0));c.rotate(fx.tilt||0);c.scale(scale,scale);let outline=mix(color,'#45324b',.75),shade=mix(color,'#493049',.20),light=mix(color,'#ffffff',.30);
+// Performer body and tiny feet
+ellipse(0,159,138,126,shade,outline,8);ellipse(-78,249,45,24,color,outline,6);ellipse(70,249,45,24,color,outline,6);ellipse(2,159,92,82,mix(color,'#ffffff',.22));
+// Ears and features
+if(animal==='cat'){path(color,outline,8,()=>{c.moveTo(-116,-150);c.lineTo(-117,-315);c.quadraticCurveTo(-53,-290,-36,-233);c.closePath()});path(color,outline,8,()=>{c.moveTo(46,-231);c.quadraticCurveTo(76,-294,127,-318);c.lineTo(128,-145);c.closePath()});path('#eaa8b1',null,0,()=>{c.moveTo(-99,-243);c.lineTo(-99,-293);c.lineTo(-67,-263);c.closePath()});path('#eaa8b1',null,0,()=>{c.moveTo(76,-264);c.lineTo(109,-296);c.lineTo(108,-245);c.closePath()})}
+if(animal==='bunny'){ellipse(-82,-284,37,119,color,outline,8);ellipse(80,-287,37,119,color,outline,8);ellipse(-82,-294,17,85,'#f3a5bf');ellipse(80,-297,17,85,'#f3a5bf')}
+if(animal==='bear'||animal==='panda'||animal==='capy'){ellipse(-113,-212,49,50,color,outline,8);ellipse(112,-212,49,50,color,outline,8);ellipse(-113,-212,27,28,mix(color,'#b7878d',.4));ellipse(112,-212,27,28,mix(color,'#b7878d',.4))}
+if(animal==='frog'){ellipse(-105,-218,54,55,color,outline,8);ellipse(105,-218,54,55,color,outline,8)}
+// Face
+ellipse(0,-95,158,143,color,outline,9);ellipse(-61,-41,61,36,light);ellipse(62,-41,61,36,light);
+if(animal==='panda'){ellipse(-68,-133,49,56,'#49434e');ellipse(70,-133,49,56,'#49434e')}
+if(animal==='capy'){ellipse(0,-29,82,55,mix(color,'#775246',.19))}
+if(animal==='frog'){ellipse(-106,-207,31,31,'#fffdf5');ellipse(106,-207,31,31,'#fffdf5');ellipse(-106,-207,11,15,'#352635');ellipse(106,-207,11,15,'#352635')}
+// Makeup and eyes
+ellipse(-94,-67,31,15,'#ff8f9b55');ellipse(94,-67,31,15,'#ff8f9b55');c.lineCap='round';c.lineJoin='round';
+function strokeEye(px,py,closed=false,look=0,half=false){
+ if(closed){path(null,'#32283a',9,()=>{c.moveTo(px-24,py);c.quadraticCurveTo(px,py+17,px+24,py)})}
+ else{ellipse(px,py,half?24:23,half?18:28,'#fff6ef');ellipse(px+look*13,py+(half?4:0),11,half?11:16,'#37283c');ellipse(px+look*13-4,py-6,3,4,'#fff');if(half)path(null,'#4a3449',7,()=>{c.moveTo(px-26,py-8);c.quadraticCurveTo(px,py-15,px+26,py-8)})}}
+
+let E=expression;
+if(E==='zen'||E==='sleep'){strokeEye(-65,-131,true);strokeEye(65,-131,true)}
+else if(E==='angry'){path(null,'#392a3d',10,()=>{c.moveTo(-102,-164);c.lineTo(-42,-145);c.moveTo(43,-145);c.lineTo(103,-164)});strokeEye(-65,-120);strokeEye(65,-120)}
+else if(E==='smug'||E==='judge'){strokeEye(-65,-133,E==='smug');strokeEye(65,-133);path(null,'#443043',6,()=>{c.moveTo(38,-164);c.lineTo(92,-176)})}
+else if(E==='sideeye'||E==='squint'||E==='fedup'||E==='eyeroll'||E==='sweat'){
+ const look=E==='eyeroll'?0:fx.look??1;
+ if(E==='fedup'){strokeEye(-65,-133,true);strokeEye(65,-133,true)}
+ else if(E==='eyeroll'){strokeEye(-65,-133);strokeEye(65,-133);ellipse(-65,-149,12,9,'#37283c');ellipse(65,-149,12,9,'#37283c')}
+ else {strokeEye(-65,-133,false,look,true);strokeEye(65,-133,false,look,true)}
+ if(E==='sweat'){ellipse(125,-149,13,21,'#7dcdf1');ellipse(128,-157,4,7,'#effcff')}
+ path(null,'#443043',8,()=>{c.moveTo(-99,-173);c.quadraticCurveTo(-61,-183,-27,-172);c.moveTo(34,-173);c.quadraticCurveTo(65,-192,98,-179)})
+}
+else if(E==='cry'){strokeEye(-65,-131);strokeEye(65,-131);ellipse(-66,-103,9,21,'#65cafa90');ellipse(68,-91,8,25,'#65cafa90')}
+else if(E==='shocked'||E==='wild'){ellipse(-65,-134,26,34,'#fff');ellipse(65,-134,26,34,'#fff');ellipse(-65+(E==='wild'?9:0),-135,11,17,'#2e2434');ellipse(65-(E==='wild'?10:0),-135,11,17,'#2e2434')}
+else if(E==='love'){c.fillStyle='#ff597e';c.textAlign='center';c.font='bold 58px system-ui';c.fillText('♥',-66,-118);c.fillText('♥',64,-118)}
+else{strokeEye(-65,-133);strokeEye(65,-133)}
+if(E!=='angry'){ellipse(-64,-180,4,4,mix(color,'#fff',.65));ellipse(65,-180,4,4,mix(color,'#fff',.65))}
+// Nose
+if(animal==='cat'||animal==='bunny')path('#a95d69',null,0,()=>{c.moveTo(-13,-80);c.lineTo(13,-80);c.quadraticCurveTo(0,-67,-13,-80)});else ellipse(0,-77,14,10,'#554047');
+// Mouth
+if(E==='angry'){path(null,'#62304b',8,()=>{c.moveTo(-25,-22);c.quadraticCurveTo(0,-55,30,-23)})}
+else if(E==='shocked'||E==='wild'){ellipse(0,-30,E==='wild'?24:19,E==='wild'?34:29,'#853d5d')}
+else if(E==='sleep'){c.fillStyle='#a4a3b7';c.font='800 27px system-ui';c.fillText('zZ',57,-33);path(null,'#694657',6,()=>{c.moveTo(-17,-26);c.quadraticCurveTo(0,-17,17,-26)})}
+else if(E==='smug'||E==='judge'){path(null,'#693c55',7,()=>{c.moveTo(-19,-24);c.quadraticCurveTo(18,-11,32,-34)})}
+else if(['sideeye','squint','fedup','eyeroll','sweat'].includes(E)){path(null,'#693c55',7,()=>{c.moveTo(-26,-20);c.quadraticCurveTo(0,-22,24,-19)});if(E==='fedup'){c.fillStyle='#744257';c.font='bold 18px sans-serif';c.fillText('…',39,-20)}}
+else if(E==='cry'){path(null,'#854d65',8,()=>{c.moveTo(-24,-18);c.quadraticCurveTo(0,-47,24,-18)})}
+else{path(null,'#714458',8,()=>{c.moveTo(-29,-38);c.quadraticCurveTo(0,-5,29,-38)})}
+if(animal==='cat'){c.strokeStyle='#71565d';c.lineWidth=3;for(let s of [-1,1])for(let k=0;k<3;k++){c.beginPath();c.moveTo(s*52,-68+k*16);c.lineTo(s*113,-82+k*26);c.stroke()}}
+// Accessory
+if(state.accessory==='glasses'){c.strokeStyle='#4c3853';c.lineWidth=7;ellipse(-65,-136,45,40,null,'#4c3853',7);ellipse(65,-136,45,40,null,'#4c3853',7);path(null,'#4c3853',7,()=>{c.moveTo(-20,-142);c.quadraticCurveTo(0,-160,20,-142)})}
+if(state.accessory==='bow'){ellipse(94,-225,31,20,'#ff75a1','#8c3b6b',5);ellipse(143,-226,31,20,'#ff75a1','#8c3b6b',5);ellipse(119,-225,13,14,'#fff3ce')}
+if(state.accessory==='crown'){path('#f9ce69','#b37b35',6,()=>{c.moveTo(-58,-239);c.lineTo(-52,-308);c.lineTo(-18,-282);c.lineTo(0,-326);c.lineTo(24,-282);c.lineTo(61,-312);c.lineTo(58,-241);c.closePath()});ellipse(0,-262,10,10,'#ff7a9f')}
+if(state.accessory==='halo'){c.save();c.globalAlpha=.85;ellipse(0,-295,102,17,null,'#fff6b5',15);c.restore()}
+// Single resting left paw
+ellipse(-121,116,36,48,color,outline,7);
+// Drum body in front (offset for right hand)
+let drum=state.drum,dc=mix(drum,'#33243b',.72),dl=mix(drum,'#fff8d9',.24);
+ellipse(182,235,122,28,'#59435a27');ellipse(182,170,112,94,drum,dc,8);path(mix(drum,'#4a2d2b',.2),dc,7,()=>{c.moveTo(75,165);c.bezierCurveTo(77,260,111,272,180,278);c.bezierCurveTo(261,271,288,246,289,166);c.closePath()});ellipse(182,156,113,67,dl,dc,8);ellipse(182,158,85,47,mix(drum,'#402829',.57));ellipse(172,142,63,28,mix(drum,'#281b29',.5));
+// Animated mallet from right paw to drum
+const fallen=fx.fallen===true;
+const kick=Math.max(0,1-(performance.now()-state.lastHit)/235);c.save();c.translate(fallen?190:106,fallen?265:112);c.rotate(fallen?1.45:(-.30+kick*.68+Math.sin(t/520)*.04));path(null,'#634335',19,()=>{c.moveTo(0,0);c.lineTo(106,-85)});ellipse(105,-85,30,35,'#e5bd83','#6d4636',7);ellipse(97,-96,13,13,'#f6d9ac');c.restore();if(!fallen)ellipse(105,112,37,32,color,outline,7);
+// Floating accent
+if(kick>.05){c.save();c.globalAlpha=kick;const accents=['✦','♪','✧'];c.fillStyle='#fff8d7';c.font='800 39px system-ui';c.fillText(accents[Math.floor(state.hits%3)],255,48);c.restore()}
+c.restore()}
+function draw(){const t=performance.now();c.clearRect(0,0,720,960);background(t);if(state.duo){let a=state.animal,other=animals[(animals.findIndex(z=>z[0]===a)+2)%animals.length];performer(161,550,.65,a,state.fur,getEmotion(t),t);performer(480,550,.65,other[0],other[3],getEmotion(t),t,1)}else performer(284,535,1,state.animal,state.fur,getEmotion(t),t);
+// animated particles
+c.save();for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.life-=.035;c.globalAlpha=Math.max(0,p.life);ellipse(p.x,p.y,p.r*p.life,p.r*p.life,'#fff8b0');if(p.life<=0)particles.splice(i,1)}c.restore();
+const bottom=state.backdrop==='night'?'#eee0ff':'#65445b';c.textAlign='center';c.font='900 31px ui-rounded, system-ui';c.fillStyle=bottom;c.fillText(state.hits>0?'CỐC!  CỐC!  CỐC!':'CHẠM ĐỂ GÕ MÕ ♫',360,855);c.font='700 18px ui-rounded, system-ui';c.fillText((state.mode==='mic'?'🎙️ ĐANG NGHE':state.mode==='file'?'🎵 THEO NHẠC':'👆 TỰ GÕ')+'  ·  '+state.bpm+' BPM',360,890);c.font='600 15px ui-rounded, system-ui';c.fillText('MÕ THE BEAT • by Linh Linh',360,928);
+let en=emotions.find(e=>e[0]===getEmotion(t));$('emotionRead').textContent=en?en[1]:'😌';state.beatGlow*=.93;requestAnimationFrame(loop)}
+function getEmotion(t){if(state.emotion!=='auto')return state.emotion;let elapsed=t-state.lastHit;let e=state.expression;if(elapsed>3200){e='zen'}else if(state.bpm>168&&state.trackEnergy>.55){e='wild'}else if(state.trackEnergy>.63){e=state.hits%3===0?'angry':'wild'}else if(state.bpm>145){e=state.hits%2===0?'smug':'shocked'}else if(state.trackEnergy<.09&&state.hits>0){e='sleep'}else{e=state.hits%4===0?'smug':'zen'}state.expression=e;return e}
+function loop(t){if(state.mode==='file')fileBeatUpdate();if(state.mode==='mic'&&microphoneOn)processMic(t);if(state.mode==='manual'&&manualActive&&t>=manualNext){hit();manualNext+=60000/state.bpm;if(manualNext<t-30)manualNext=t+60000/state.bpm}drawFrame(t)}
+function drawFrame(t){
+ c.clearRect(0,0,720,960);background(t);let face=getEmotion(t);let caption='';
+ if(state.duo){
+  let drama=state.drama;let age=drama?t-drama.start:9999;
+  const active=age<2050&&age>=0;
+  if(!active&&drama){state.drama=null;drama=null}
+  const reacted=active&&age>230;
+  const dramaType=active?drama.type:'';
+  let leftFace=reacted?drama.react:face;
+  let partnerFace=active?(dramaType==='peace'?'zen':dramaType==='drop'?'shocked':'wild'):(state.duoScene==='friends'?'love':state.duoScene==='rivals'?'smug':'zen');
+  let jump=0,sway=0,bump=0;
+  if(active){
+    let env=Math.min(1,age/190,Math.max(0,(2050-age)/460));
+    if(['jump','offbeat'].includes(dramaType))jump=-(Math.abs(Math.sin(age/112))*108)*(state.chaos/100)*env;
+    if(dramaType==='bump')bump=-70*Math.sin(Math.min(age/680,1)*Math.PI)*env;
+    sway=Math.sin(age/95)*.07*env;
+    caption=drama.tag;
+  }
+  performer(156,552,.63,state.animal,state.fur,leftFace,t,0,{look:1,tilt:reacted&&dramaType!=='peace'?.045:0});
+  performer(475,552,.63,state.partnerAnimal,state.partnerColor,partnerFace,t,1,{look:-1,y:jump,x:bump,tilt:sway,fallen:active&&dramaType==='drop'});
+  if(active){
+   let bubbleX=dramaType==='peace'?365:270;
+   c.save();c.fillStyle='#ffffffed';c.strokeStyle='#57405c';c.lineWidth=3;
+   c.beginPath();c.roundRect(bubbleX-142,206,284,55,23);c.fill();c.stroke();
+   c.fillStyle='#583149';c.textAlign='center';c.textBaseline='middle';c.font='bold 17px system-ui';c.fillText(caption,bubbleX,233);
+   if(reacted&&leftFace==='sideeye'){c.fillStyle='#5e3550';c.font='bold 21px system-ui';c.fillText('👀',248,371)}
+   c.restore();
+  }
+ }else performer(284,535,1,state.animal,state.fur,face,t);
+ for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.life-=.032;c.save();c.globalAlpha=Math.max(0,p.life);ellipse(p.x,p.y,p.r*Math.max(0,p.life),p.r*Math.max(0,p.life),'#fff8b0');c.restore();if(p.life<=0)particles.splice(i,1)}
+ const color=state.backdrop==='night'?'#eee0ff':'#65445b';c.textAlign='center';c.textBaseline='middle';c.fillStyle=color;c.font='900 31px ui-rounded, system-ui';c.fillText(state.duo&&caption?'ĐÚNG LÀ KHÔNG THỂ YÊN!':'CHẠM ĐỂ GÕ MÕ ♫',360,853);c.font='700 18px ui-rounded, system-ui';c.fillText((state.mode==='mic'?'🎙️ ĐANG NGHE':state.mode==='file'?'🎵 THEO NHẠC':'👆 TỰ GÕ')+'  ·  '+state.bpm+' BPM',360,893);c.font='600 15px ui-rounded, system-ui';c.fillText('MÕ THE BEAT • by Linh Linh',360,934);
+ let e=state.duo&&state.drama&&t-state.drama.start>230&&t-state.drama.start<2050?state.drama.react:face;
+ let emoji=emotions.find(v=>v[0]===e);$('emotionRead').textContent=emoji?emoji[1]:'😌';
+}
+
+function run(t){if(state.mode==='file')fileBeatUpdate();if(state.mode==='mic'&&microphoneOn)processMic(t);if(state.mode==='manual'&&manualActive&&t>=manualNext){hit();manualNext+=60000/state.bpm;if(manualNext<t-25)manualNext=t+60000/state.bpm}if(t-lastAnimFrame>=29){drawFrame(t);lastAnimFrame=t}requestAnimationFrame(run)}
+$('photoBtn').onclick=()=>{try{const link=document.createElement('a');link.download='Mo-the-beat-'+Date.now()+'.png';link.href=canvas.toDataURL('image/png');link.click();notice('Đã xuất ảnh mõ thủ! 📸')}catch(e){notice('Không lưu được ảnh: '+e.message)}};
+function recordingSupported(){return !!(canvas.captureStream&&window.MediaRecorder)}
+$('recordBtn').onclick=async()=>{if(state.recording){stopRecording();return}if(!recordingSupported()){notice('Trình duyệt này chưa hỗ trợ quay video canvas. Thử Chrome/Edge máy tính hoặc ghi màn hình iPhone.');return}let ac=ensureAudio();if(!ac)return;try{let video=canvas.captureStream(30);const tr=recordDest.stream.getAudioTracks();let combined=new MediaStream([...video.getVideoTracks(),...tr]);let mime=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].find(s=>MediaRecorder.isTypeSupported(s));if(!mime)throw Error('Không tìm được định dạng video WebM hỗ trợ');recordedChunks=[];tempRecorder=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:4500000});recordingStream=combined;tempRecorder.ondataavailable=e=>{if(e.data.size)recordedChunks.push(e.data)};tempRecorder.onstop=()=>{let blob=new Blob(recordedChunks,{type:mime});if(!blob.size){notice('Video trống, hãy thử lại');return}let u=URL.createObjectURL(blob);let a=document.createElement('a');a.href=u;a.download='Mo-the-beat-'+Date.now()+'.webm';a.click();setTimeout(()=>URL.revokeObjectURL(u),45000);if(recordingStream)recordingStream.getVideoTracks().forEach(t=>t.stop());notice('Đã xuất video WebM! 🎬')};tempRecorder.start(250);state.recording=true;$('recordBtn').textContent='⏹ Dừng quay';$('recordBtn').classList.add('danger');notice('Đang quay sân khấu! Bật nhạc hoặc gõ nhé 🎥')}catch(e){notice('Không thể quay: '+e.message);console.warn(e)}};
+function stopRecording(){if(tempRecorder&&tempRecorder.state!=='inactive'){tempRecorder.stop()}state.recording=false;$('recordBtn').textContent='🔴 Quay video';$('recordBtn').classList.remove('danger')}
+window.addEventListener('pagehide',()=>{if(state.skitTimer)clearInterval(state.skitTimer);if(micStream)micStream.getTracks().forEach(t=>t.stop());if(fileURL)URL.revokeObjectURL(fileURL)});
+restore();if(!animals.some(a=>a[0]===state.partnerAnimal))state.partnerAnimal='frog';syncControls();requestAnimationFrame(run);
+})();
+</script>
+</body>
+</html>
